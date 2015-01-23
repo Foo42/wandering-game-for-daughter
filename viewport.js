@@ -45,7 +45,6 @@ function createViewport(world, options) {
 
     viewport.move = function move(newCentre) {
         viewport.centre = newCentre;
-        drawAllPieces(context);
     };
 
     viewport.getCentre = function () {
@@ -55,19 +54,48 @@ function createViewport(world, options) {
     viewport.draw = drawAllPieces.bind(null, context);
 
     viewport.ensureVisible = function ensureVisible(point) {
-        viewport.move(point);
-        // var boxRatio = 0.8;
-        // var boxWidth = boxRatio*viewport.size.width;
-        // var boxHeight = boxRatio*viewport.size.height;
-        // var box = {
-        //     top:viewport.centre.y - boxHeight/2,
-        //     bottom:viewport.centre.y + boxHeight/2,
-        //     left:viewport.centre.x - boxWidth/2,
-        //     bottom:viewport.centre.x + boxWidth/2,
-        // }
-        // if(point.x < box.left){
-        //     viewport.move({x:point.x})
-        // }
+        //viewport.move(point);
+
+        var boxRatio = 0.5;
+        var boxWidth = boxRatio * viewport.size.width;
+        var boxHeight = boxRatio * viewport.size.height;
+        var box = {
+            top: viewport.centre.y - boxHeight / 2,
+            bottom: viewport.centre.y + boxHeight / 2,
+            left: viewport.centre.x - boxWidth / 2,
+            right: viewport.centre.x + boxWidth / 2,
+        }
+        if (point.x < box.left) {
+            var outOfBoxBy = point.x - box.left;
+            console.log('out of box by', outOfBoxBy);
+            viewport.move({
+                x: viewport.centre.x + outOfBoxBy,
+                y: viewport.centre.y
+            });
+        } else if (point.x > box.right) {
+            var outOfBoxBy = point.x - box.right;
+            console.log('out of box by', outOfBoxBy);
+            viewport.move({
+                x: viewport.centre.x + outOfBoxBy,
+                y: viewport.centre.y
+            });
+        }
+
+        if (point.y < box.top) {
+            var outOfBoxBy = point.y - box.top;
+            console.log('out of box by', outOfBoxBy);
+            viewport.move({
+                x: viewport.centre.x,
+                y: viewport.centre.y + outOfBoxBy
+            });
+        } else if (point.y > box.bottom) {
+            var outOfBoxBy = point.y - box.bottom;
+            console.log('out of box by', outOfBoxBy);
+            viewport.move({
+                x: viewport.centre.x,
+                y: viewport.centre.y + outOfBoxBy
+            });
+        }
     }
 
     return viewport;
