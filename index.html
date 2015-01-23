@@ -1,0 +1,31 @@
+<html>
+<head>
+    <style type="text/css">
+        .container {
+          height: 500px;
+          width:800px;
+          background-color:gray;
+          position:relative;
+        }
+
+        .marker {
+          width:10px;
+          height:10px;
+          transform: translate(-50%, -50%);
+          background-color:red;
+          position:absolute;
+        }
+    </style>
+    <script type="text/javascript" src="eventEmitter.js"></script>
+</head>
+    <body>
+        <canvas id="viewport" class="container" width="800" height="500">
+        </canvas>
+        <script type="text/javascript" src="md5.js"></script>
+        <script type="text/javascript" src="tinycolor.js"></script>
+        <script type="text/javascript" src="world.js"></script>
+        <script type="text/javascript" src="viewport.js"></script>
+        <script type="text/javascript" src="game.js"></script>
+        <script type="text/javascript" src="browserBinding.js"></script>
+    </body>
+</html>

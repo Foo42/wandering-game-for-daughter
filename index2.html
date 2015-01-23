@@ -1,0 +1,171 @@
+<html>
+<head>
+    <style type="text/css">
+        .container {
+          height: 500px;
+          width:800px;
+          background-color:gray;
+          position:relative;
+        }
+
+        .marker {
+          width:10px;
+          height:10px;
+          transform: translate(-50%, -50%);
+          background-color:red;
+          position:absolute;
+        }
+    </style>
+    <script type="text/javascript">
+        /*!
+ * EventEmitter v4.2.11 - git.io/ee
+ * Unlicense - http://unlicense.org/
+ * Oliver Caldwell - http://oli.me.uk/
+ * @preserve
+ */
+(function(){"use strict";function t(){}function i(t,n){for(var e=t.length;e--;)if(t[e].listener===n)return e;return-1}function n(e){return function(){return this[e].apply(this,arguments)}}var e=t.prototype,r=this,s=r.EventEmitter;e.getListeners=function(n){var r,e,t=this._getEvents();if(n instanceof RegExp){r={};for(e in t)t.hasOwnProperty(e)&&n.test(e)&&(r[e]=t[e])}else r=t[n]||(t[n]=[]);return r},e.flattenListeners=function(t){var e,n=[];for(e=0;e<t.length;e+=1)n.push(t[e].listener);return n},e.getListenersAsObject=function(n){var e,t=this.getListeners(n);return t instanceof Array&&(e={},e[n]=t),e||t},e.addListener=function(r,e){var t,n=this.getListenersAsObject(r),s="object"==typeof e;for(t in n)n.hasOwnProperty(t)&&-1===i(n[t],e)&&n[t].push(s?e:{listener:e,once:!1});return this},e.on=n("addListener"),e.addOnceListener=function(e,t){return this.addListener(e,{listener:t,once:!0})},e.once=n("addOnceListener"),e.defineEvent=function(e){return this.getListeners(e),this},e.defineEvents=function(t){for(var e=0;e<t.length;e+=1)this.defineEvent(t[e]);return this},e.removeListener=function(r,s){var n,e,t=this.getListenersAsObject(r);for(e in t)t.hasOwnProperty(e)&&(n=i(t[e],s),-1!==n&&t[e].splice(n,1));return this},e.off=n("removeListener"),e.addListeners=function(e,t){return this.manipulateListeners(!1,e,t)},e.removeListeners=function(e,t){return this.manipulateListeners(!0,e,t)},e.manipulateListeners=function(r,t,i){var e,n,s=r?this.removeListener:this.addListener,o=r?this.removeListeners:this.addListeners;if("object"!=typeof t||t instanceof RegExp)for(e=i.length;e--;)s.call(this,t,i[e]);else for(e in t)t.hasOwnProperty(e)&&(n=t[e])&&("function"==typeof n?s.call(this,e,n):o.call(this,e,n));return this},e.removeEvent=function(e){var t,r=typeof e,n=this._getEvents();if("string"===r)delete n[e];else if(e instanceof RegExp)for(t in n)n.hasOwnProperty(t)&&e.test(t)&&delete n[t];else delete this._events;return this},e.removeAllListeners=n("removeEvent"),e.emitEvent=function(r,o){var e,i,t,s,n=this.getListenersAsObject(r);for(t in n)if(n.hasOwnProperty(t))for(i=n[t].length;i--;)e=n[t][i],e.once===!0&&this.removeListener(r,e.listener),s=e.listener.apply(this,o||[]),s===this._getOnceReturnValue()&&this.removeListener(r,e.listener);return this},e.trigger=n("emitEvent"),e.emit=function(e){var t=Array.prototype.slice.call(arguments,1);return this.emitEvent(e,t)},e.setOnceReturnValue=function(e){return this._onceReturnValue=e,this},e._getOnceReturnValue=function(){return this.hasOwnProperty("_onceReturnValue")?this._onceReturnValue:!0},e._getEvents=function(){return this._events||(this._events={})},t.noConflict=function(){return r.EventEmitter=s,t},"function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:r.EventEmitter=t}).call(this);
+    </script>
+</head>
+
+<body>
+    <div id="viewport" class="container">
+</div>
+<section><h2>Controls</h2>
+<input id="centreX">
+<input id="centreY">
+</section>
+</body>
+<script type="text/javascript">
+        function createWorld(options){
+            var world = {
+                height:1000,
+                width: 1000,
+                pieces: [
+                    
+                ]
+            }
+            return world;
+        }
+
+        function redrawPiece(piece){
+            var piecePositionInViewport = vp.getDisplayPosition(piece.position);
+            console.log('position in vp',piecePositionInViewport);
+            piece.el.style.top = piecePositionInViewport.y;
+            piece.el.style.left = piecePositionInViewport.x;
+        }
+
+        function createViewport(world, options){
+            var viewport = {
+                centre: {
+                x:0,
+                y:0
+                },
+                size: {width:800,height:500},
+                scale: 1
+            };
+
+            viewport.getDisplayPosition = function getDisplayPosition(positionInWorld){
+                return {
+                    x:(viewport.size.width / 2) + positionInWorld.x + viewport.centre.x,
+                    y:(viewport.size.height / 2) + positionInWorld.y + viewport.centre.y
+                }
+            };
+
+            viewport.move = function move(newCentre){
+                viewport.centre = newCentre;
+                world.pieces.forEach(function(piece){
+                    redrawPiece(piece);
+                });
+            }
+            viewport.getCentre = function(){
+                return viewport.centre;
+            }
+
+            return viewport;
+        }
+
+        var world = createWorld();
+        var vp = createViewport(world);
+
+        function createPiece(options, id){
+            if(id === undefined){
+                id = options;
+                options = undefined;
+            }
+            var options = options || {position:{}};
+            var position = {x:options.position.x || 0, y:options.position.y ||0};
+            var marker = {position:position};
+            
+            var div = document.createElement("div");
+            div.id = id;
+            div.classList.add('marker');
+            marker.el = div;
+
+            var markerPosition = vp.getDisplayPosition(marker.position);
+            console.log(markerPosition);
+            div.style.top = markerPosition.y;
+            div.style.left = markerPosition.x;
+
+            document.getElementById('viewport').appendChild(div);
+
+            return marker;
+        }
+
+        
+
+        var piece = createPiece('hello');
+        world.pieces.push(piece);
+
+        document.getElementById('viewport').addEventListener('mousedown',function(ev){
+            vp.mousedown = true;
+            vp.dragStart = {x:ev.clientX,y:ev.clientY};
+            vp.centerAtDragStart = vp.getCentre();
+        });
+        document.getElementById('viewport').addEventListener('mouseup',function(ev){
+            vp.mousedown = false;
+            vp.dragStart = undefined;
+        });
+        document.getElementById('viewport').addEventListener('mousemove',function(ev){
+            if(!vp.mousedown){
+                return;
+            }
+            var diff = {dx:(ev.clientX - vp.dragStart.x), dy:(ev.clientY - vp.dragStart.y)};
+            console.log('diff',JSON.stringify(diff));
+            var newCentre = vp.getCentre();
+            newCentre.x = newCentre.x + diff.dx;
+            newCentre.y = newCentre.y + diff.dy;
+            console.log('newCentre =',JSON.stringify(newCentre));
+            vp.move(newCentre);
+            vp.dragStart = {x:ev.clientX,y:ev.clientY};
+            //redrawPiece(piece);
+        });
+
+        function scrollFunc(e) {
+    if ( typeof scrollFunc.x == 'undefined' ) {
+        scrollFunc.x=window.pageXOffset;
+        scrollFunc.y=window.pageYOffset;
+    }
+    var diffX=scrollFunc.x-window.pageXOffset;
+    var diffY=scrollFunc.y-window.pageYOffset;
+
+    if( diffX<0 ) {
+        // Scroll right
+    } else if( diffX>0 ) {
+        // Scroll left
+    } else if( diffY<0 ) {
+        alert('scroll in');
+    } else if( diffY>0 ) {
+        // Scroll up
+        alert('scroll out');
+    } else {
+        // First scroll event
+    }
+    scrollFunc.x=window.pageXOffset;
+    scrollFunc.y=window.pageYOffset;
+}
+window.onscroll=scrollFunc
+
+
+        
+    </script>
+</html>
