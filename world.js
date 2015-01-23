@@ -14,7 +14,7 @@ function createWorld(options) {
                     var flowerSize = hashRandom(position.x, position.y, 'flower size') * 10 + 5;
                     context.translate(chunkSize / 2, chunkSize / 2);
                     context.translate(-flowerSize / 2, -flowerSize / 2);
-                    var baseFlowerColor = '#FF0000';
+                    var baseFlowerColor = hashRandom(position.x, position.y, 'flower color') > 0.98 ? '#FFFF00' : '#FF0000';
                     var flowerColor = tinycolor(baseFlowerColor).darken(hashRandom(position.x, position.y, 'flower darken') * 20).toHexString();
                     context.fillStyle = flowerColor;
                     context.fillRect(0, 0, flowerSize, flowerSize);

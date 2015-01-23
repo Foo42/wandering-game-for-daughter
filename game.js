@@ -35,7 +35,7 @@ function createPlayer(options, id) {
     };
 
     player.size = 120;
-    player.walkingSpeed = 200;
+    player.walkingSpeed = 250;
     player.tick = function (elapsedMs) {
         var factor = elapsedMs / 1000;
 
