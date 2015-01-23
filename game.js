@@ -35,7 +35,7 @@ function createPlayer(options, id) {
     };
 
     player.size = 120;
-    player.walkingSpeed = 150;
+    player.walkingSpeed = 200;
     player.tick = function (elapsedMs) {
         var factor = elapsedMs / 1000;
 
@@ -64,16 +64,20 @@ function createPlayer(options, id) {
 var player = createPlayer('hello');
 world.characters.player = player;
 
-function startGameLoop(fps) {
-    period = 1000 / fps;
+function startGameLoop() {
+    var lastTime;
 
-    function doGameLoop(elapsedMs) {
-        var tock = world.tick(period);
+    function doGameLoop(time) {
+        lastTime = lastTime || time - 1;
+        var elapsedMs = time - lastTime;
+        lastTime = time;
+        world.fps = 1000 / elapsedMs;
+        var tock = world.tick(elapsedMs);
         tock();
         vp.ensureVisible(world.player().position);
         vp.draw();
-        setTimeout(doGameLoop, period);
+        requestAnimationFrame(doGameLoop);
     }
-    setTimeout(doGameLoop, period);
+    requestAnimationFrame(doGameLoop);
 }
-startGameLoop(20);
+startGameLoop();

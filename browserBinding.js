@@ -112,3 +112,8 @@ function scrollFunc(e) {
     scrollFunc.y = window.pageYOffset;
 }
 window.onscroll = scrollFunc
+
+var fpsDisplay = document.getElementById('fps');
+setInterval(function updateFpsDisplay() {
+    fpsDisplay.innerHTML = world.fps + ' fps';
+}, 2000);

@@ -67,14 +67,12 @@ function createViewport(world, options) {
         }
         if (point.x < box.left) {
             var outOfBoxBy = point.x - box.left;
-            console.log('out of box by', outOfBoxBy);
             viewport.move({
                 x: viewport.centre.x + outOfBoxBy,
                 y: viewport.centre.y
             });
         } else if (point.x > box.right) {
             var outOfBoxBy = point.x - box.right;
-            console.log('out of box by', outOfBoxBy);
             viewport.move({
                 x: viewport.centre.x + outOfBoxBy,
                 y: viewport.centre.y
@@ -83,14 +81,12 @@ function createViewport(world, options) {
 
         if (point.y < box.top) {
             var outOfBoxBy = point.y - box.top;
-            console.log('out of box by', outOfBoxBy);
             viewport.move({
                 x: viewport.centre.x,
                 y: viewport.centre.y + outOfBoxBy
             });
         } else if (point.y > box.bottom) {
             var outOfBoxBy = point.y - box.bottom;
-            console.log('out of box by', outOfBoxBy);
             viewport.move({
                 x: viewport.centre.x,
                 y: viewport.centre.y + outOfBoxBy
