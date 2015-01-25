@@ -6,11 +6,9 @@ function createPlayer(options, id) {
     var imgLoaded = false;
     img.addEventListener("load", function () {
         imgLoaded = true;
-        img.width = 50;
-        img.height = 50;
         // execute drawImage statements here
     }, false);
-    img.src = 'naomi.png'; // Set source path
+    img.src = 'naomi-small.png'; // Set source path
 
     if (id === undefined) {
         id = options;
@@ -54,7 +52,7 @@ function createPlayer(options, id) {
         //context.fillRect(0, 0, player.size, player.size);
 
         if (imgLoaded) {
-            context.drawImage(img, 0, 0, player.size, player.size)
+            context.drawImage(img, 0, 0, img.width, img.height, 0, 0, player.size, player.size)
         }
     }
 

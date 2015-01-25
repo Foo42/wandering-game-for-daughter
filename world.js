@@ -14,10 +14,41 @@ function createWorld(options) {
                     var flowerSize = hashRandom(position.x, position.y, 'flower size') * 10 + 5;
                     context.translate(chunkSize / 2, chunkSize / 2);
                     context.translate(-flowerSize / 2, -flowerSize / 2);
+
+                    var radius = flowerSize / 3;
                     var baseFlowerColor = hashRandom(position.x, position.y, 'flower color') > 0.98 ? '#FFFF00' : '#FF0000';
-                    var flowerColor = tinycolor(baseFlowerColor).darken(hashRandom(position.x, position.y, 'flower darken') * 20).toHexString();
+                    var colorOp = hashRandom(position.x, position.y, 'lighten or darken') > 0.5 ? 'lighten' : 'darken';
+                    var flowerColor = tinycolor(baseFlowerColor)[colorOp](hashRandom(position.x, position.y, 'flower darken') * 30).toHexString();
+
+                    context.beginPath();
+
+                    context.arc(0, 0 + radius, radius, 0, 2 * Math.PI, false);
                     context.fillStyle = flowerColor;
-                    context.fillRect(0, 0, flowerSize, flowerSize);
+                    context.fill();
+
+                    context.beginPath();
+
+                    context.arc(0, 0 - radius, radius, 0, 2 * Math.PI, false);
+                    context.fillStyle = flowerColor;
+                    context.fill();
+
+                    context.beginPath();
+
+                    context.arc(0 + radius, 0, radius, 0, 2 * Math.PI, false);
+                    context.fillStyle = flowerColor;
+                    context.fill();
+
+                    context.beginPath();
+
+                    context.arc(0 - radius, 0, radius, 0, 2 * Math.PI, false);
+                    context.fillStyle = flowerColor;
+                    context.fill();
+
+                    context.beginPath();
+                    context.arc(0, 0, radius / 1.8, 0, 2 * Math.PI, false);
+                    context.fillStyle = 'white';
+                    context.fill();
+
                 }
             }
         }
