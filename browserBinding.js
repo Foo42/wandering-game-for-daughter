@@ -114,6 +114,8 @@ function scrollFunc(e) {
 window.onscroll = scrollFunc
 
 var fpsDisplay = document.getElementById('fps');
-setInterval(function updateFpsDisplay() {
+var cacheDisplay = document.getElementById('cache');
+setInterval(function updateDiagnosticDisplays() {
     fpsDisplay.innerHTML = world.fps + ' fps';
+    cacheDisplay.innerHTML = cacheSize() + ' items in cache';
 }, 2000);

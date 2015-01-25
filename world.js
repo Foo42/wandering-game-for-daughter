@@ -4,21 +4,33 @@ function createWorld(options) {
             position: position,
 
             draw: function draw(context) {
-                var baseGrassColor = '#008B45';
-                var grassColor = tinycolor(baseGrassColor).darken(hashRandom(position.x, position.y, 'grass darken') * 5).toHexString();
-                context.fillStyle = grassColor;
 
-                var hasFlower = hashRandom(position.x, position.y, 'flower') > 0.93;
+                var cellState = cacheOrCalculate('grass' + position.x + position.y, function () {
+                    var state = {};
+                    var baseGrassColor = '#008B45';
+                    var grassColor = tinycolor(baseGrassColor).darken(hashRandom(position.x, position.y, 'grass darken') * 5).toHexString();
+                    state.grassColor = grassColor;
+                    var hasFlower = hashRandom(position.x, position.y, 'flower') > 0.93;
+                    state.hasFlower = hasFlower;
+                    if (hasFlower) {
+                        var flowerSize = hashRandom(position.x, position.y, 'flower size') * 10 + 5;
+
+                        var radius = flowerSize / 3;
+                        var baseFlowerColor = hashRandom(position.x, position.y, 'flower color') > 0.98 ? '#FFFF00' : '#FF0000';
+                        var colorOp = hashRandom(position.x, position.y, 'lighten or darken') > 0.5 ? 'lighten' : 'darken';
+                        var flowerColor = tinycolor(baseFlowerColor)[colorOp](hashRandom(position.x, position.y, 'flower darken') * 30).toHexString();
+                        state.flowerColor = flowerColor;
+                        state.flowerRadius = radius;
+                    }
+                    return state;
+                });
+
+                context.fillStyle = cellState.grassColor;;
+
                 context.fillRect(0, 0, chunkSize, chunkSize);
-                if (hasFlower) {
-                    var flowerSize = hashRandom(position.x, position.y, 'flower size') * 10 + 5;
-                    context.translate(chunkSize / 2, chunkSize / 2);
-                    context.translate(-flowerSize / 2, -flowerSize / 2);
-
-                    var radius = flowerSize / 3;
-                    var baseFlowerColor = hashRandom(position.x, position.y, 'flower color') > 0.98 ? '#FFFF00' : '#FF0000';
-                    var colorOp = hashRandom(position.x, position.y, 'lighten or darken') > 0.5 ? 'lighten' : 'darken';
-                    var flowerColor = tinycolor(baseFlowerColor)[colorOp](hashRandom(position.x, position.y, 'flower darken') * 30).toHexString();
+                if (cellState.hasFlower) {
+                    var radius = cellState.flowerRadius;
+                    var flowerColor = cellState.flowerColor;
 
                     context.beginPath();
 
