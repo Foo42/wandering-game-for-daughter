@@ -36,7 +36,7 @@ function createWorld(options) {
     }
 
     var catImg = new Image();
-    catImg.src = 'cat.png'
+    catImg.src = 'catsprite.png'
 
     function makeAnimalChunks(position, chunkSize) {
         return cacheOrCalculate('animalChunk' + position.x + position.y, function () {
@@ -125,7 +125,14 @@ function createWorld(options) {
                         context.save();
                         // context.fillStyle = "red";
                         // context.fillRect(0, 0, 10, 10)
-                        context.drawImage(cat.img, 0, 0, cat.img.width, cat.img.height, cat.position.x, cat.position.y, cat.img.width / 6, cat.img.height / 6);
+                        var frameWidth = cat.img.width / 3;
+                        var currentFrame = 0;
+                        if (cat.velocity.x || cat.velocity.y) {
+                            currentFrame = Math.round(new Date().getTime() / 100) % 4;
+                            var frameMap = [0, 1, 0, 2];
+                            currentFrame = frameMap[currentFrame];
+                        }
+                        context.drawImage(cat.img, currentFrame * frameWidth, 0, frameWidth, cat.img.height, cat.position.x, cat.position.y, frameWidth / 6, cat.img.height / 6);
                         context.restore();
                     }
                 }
