@@ -70,7 +70,7 @@ function startGameLoop() {
         var elapsedMs = time - lastTime;
         lastTime = time;
         world.fps = 1000 / elapsedMs;
-        var tock = world.tick(elapsedMs);
+        var tock = world.tick(vp, elapsedMs);
         tock();
         vp.ensureVisible(world.player().position);
         vp.draw();

@@ -36,7 +36,6 @@
             }
             return flower;
         });
-        console.log('state.flowers', state.flowers);
 
         return state;
     }
@@ -52,7 +51,6 @@
                 });
 
                 function drawFlower(context, options) {
-                    console.log('drawing flower');
                     context.save();
                     var radius = options.radius;
                     var flowerColor = options.color;
