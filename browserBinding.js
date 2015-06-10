@@ -1,15 +1,23 @@
-document.getElementById('viewport').addEventListener('mousedown', function (ev) {
-    vp.mousedown = true;
-    vp.dragStart = {
-        x: ev.clientX,
-        y: ev.clientY
-    };
-    vp.centerAtDragStart = vp.getCentre();
-});
-document.getElementById('viewport').addEventListener('mouseup', function (ev) {
-    vp.mousedown = false;
-    vp.dragStart = undefined;
-});
+(function () {
+    var lastDownTime;
+    document.getElementById('viewport').addEventListener('mousedown', function (ev) {
+        lastDownTime = ev.timeStamp;
+        vp.mousedown = true;
+        vp.dragStart = {
+            x: ev.clientX,
+            y: ev.clientY
+        };
+        vp.centerAtDragStart = vp.getCentre();
+    });
+    document.getElementById('viewport').addEventListener('mouseup', function (ev) {
+        vp.mousedown = false;
+        vp.dragStart = undefined;
+        if (ev.timeStamp - lastDownTime < 500) {
+            userInputEvents.emit('game area tap', ev);
+        }
+    });
+})();
+
 document.getElementById('viewport').addEventListener('mousemove', function (ev) {
     if (!vp.mousedown) {
         return;

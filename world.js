@@ -1,4 +1,65 @@
 function createWorld(options) {
+    var userContent = [];
+    userCommands.on('place game item', function (command) {
+        userContent.push({
+            type: 'flower',
+            position: command.location
+        });
+    });
+
+    function makeUserContentChunks(position, chunkSize) {
+        return {
+            position: position,
+
+            draw: function draw(context) {
+                if (!userContent.length) {
+                    return;
+                }
+                userContent.forEach(function drawUserContentItem(item) {
+                    var positionRelativeToChunk = {
+                        x: item.position.x - position.x,
+                        y: item.position.y - position.y
+                    };
+                    context.save();
+                    context.translate(positionRelativeToChunk.x, positionRelativeToChunk.y);
+                    var radius = 30;
+                    var flowerColor = '#FFFF00';
+                    // context.translate(options.position.x, options.position.y);
+                    context.beginPath();
+
+                    context.arc(0, 0 + radius, radius, 0, 2 * Math.PI, false);
+                    context.fillStyle = flowerColor;
+                    context.fill();
+
+                    context.beginPath();
+
+                    context.arc(0, 0 - radius, radius, 0, 2 * Math.PI, false);
+                    context.fillStyle = flowerColor;
+                    context.fill();
+
+                    context.beginPath();
+
+                    context.arc(0 + radius, 0, radius, 0, 2 * Math.PI, false);
+                    context.fillStyle = flowerColor;
+                    context.fill();
+
+                    context.beginPath();
+
+                    context.arc(0 - radius, 0, radius, 0, 2 * Math.PI, false);
+                    context.fillStyle = flowerColor;
+                    context.fill();
+
+                    context.beginPath();
+                    context.arc(0, 0, radius / 1.8, 0, 2 * Math.PI, false);
+                    context.fillStyle = 'white';
+                    context.fill();
+                    context.restore();
+                });
+
+            }
+        }
+    }
+
     function makeGrassChunk(position, chunkSize) {
         return {
             position: position,
@@ -203,6 +264,7 @@ function createWorld(options) {
                 .concat(chunker.getVisibleChunks(viewPort, makeGrassChunk))
                 .concat(chunker.getVisibleChunks(viewPort, makeFlowerChunk, 300))
                 .concat(chunker.getVisibleChunks(viewPort, makeAnimalChunks, 2000))
+                .concat(chunker.getVisibleChunks(viewPort, makeUserContentChunks, 1000))
                 .concat(this.player());
         }
     }
