@@ -12,3 +12,10 @@ userInputEvents.on('game area tap', function (ev) {
 		type: 'flower'
 	});
 });
+
+userInputEvents.on('movement control on', function (direction) {
+	userCommands.emit('make player move', direction);
+});
+userInputEvents.on('movement control off', function (direction) {
+	userCommands.emit('stop player moving');
+});

@@ -63,6 +63,28 @@ function createPlayer(options, id) {
         }
     }
 
+    userCommands.on('make player move', function (direction) {
+        var movement = {
+            up: function () {
+                player.velocity.y = -player.walkingSpeed;
+            },
+            down: function () {
+                player.velocity.y = player.walkingSpeed;
+            },
+            left: function () {
+                player.velocity.x = -player.walkingSpeed;
+            },
+            right: function () {
+                player.velocity.x = +player.walkingSpeed;
+            }
+        };
+        movement[direction]();
+    });
+
+    userCommands.on('stop player moving', function () {
+        player.velocity.y = player.velocity.x = 0;
+    });
+
     return player;
 }
 

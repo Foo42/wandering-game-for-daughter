@@ -41,31 +41,31 @@ document.getElementById('viewport').addEventListener('mousemove', function (ev) 
 
 var keydown = {
     UP: function () {
-        world.player().velocity.y = -world.player().walkingSpeed;
+        userInputEvents.emit('movement control on', 'up');
     },
     DOWN: function () {
-        world.player().velocity.y = player.walkingSpeed;
+        userInputEvents.emit('movement control on', 'down');
     },
     LEFT: function () {
-        world.player().velocity.x = -player.walkingSpeed;
+        userInputEvents.emit('movement control on', 'left');
     },
     RIGHT: function () {
-        world.player().velocity.x = +player.walkingSpeed;
+        userInputEvents.emit('movement control on', 'right');
     }
 };
 
 var keyup = {
     UP: function () {
-        world.player().velocity.y = 0;
+        userInputEvents.emit('movement control off', 'up');
     },
     DOWN: function () {
-        world.player().velocity.y = 0;
+        userInputEvents.emit('movement control off', 'down');
     },
     LEFT: function () {
-        world.player().velocity.x = 0;
+        userInputEvents.emit('movement control off', 'left');
     },
     RIGHT: function () {
-        world.player().velocity.x = 0;
+        userInputEvents.emit('movement control off', 'right');
     }
 };
 
@@ -95,6 +95,16 @@ function doKeyUp(evt) {
 }
 window.addEventListener('keydown', doKeyDown, true);
 window.addEventListener('keyup', doKeyUp, true);
+
+['up', 'down', 'left', 'right'].forEach(function (direction) {
+    var button = document.getElementById(direction + '-control');
+    button.addEventListener('mousedown', function () {
+        userInputEvents.emit('movement control on', direction);
+    });
+    button.addEventListener('mouseup', function () {
+        userInputEvents.emit('movement control off', direction);
+    });
+});
 
 // function scrollFunc(e) {
 //     if (typeof scrollFunc.x == 'undefined') {

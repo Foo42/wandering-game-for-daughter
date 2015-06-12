@@ -23,6 +23,11 @@
         bottom: 0;
       }
 
+      #movement-control-container {
+        position: absolute;
+        bottom: 0;
+        right:0;
+      }
       body{
         margin: 0;
       }
@@ -37,6 +42,28 @@
             <div id="fps"></div>
             <div id="cache"></div>
             <div id="position"></div>  
+          </div>
+          <div id="movement-control-container">
+            <svg height="100" width="100">
+              <g transform="translate(50,50)">
+                <g transform="translate(0,-50)">
+                  <polygon id="up-control" points="0,0 20,20 -20,20" style="fill:white;stroke:black;stroke-width:1"/>
+                  </polygon>
+                </g>
+                <g transform="translate(0,50) rotate(180)">
+                  <polygon id="down-control" points="0,0 20,20 -20,20" style="fill:white;stroke:black;stroke-width:1"/>
+                  </polygon>
+                </g>
+                <g transform="translate(50,0) rotate(90)">
+                  <polygon id="right-control" points="0,0 20,20 -20,20" style="fill:white;stroke:black;stroke-width:1"/>
+                  </polygon>
+                </g>
+                <g transform="translate(-50,0) rotate(270)">
+                  <polygon id="left-control" points="0,0 20,20 -20,20" style="fill:white;stroke:black;stroke-width:1"/>
+                  </polygon>
+                </g>
+              </g>
+            </svg>
           </div>
         </div>
         
