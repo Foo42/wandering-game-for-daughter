@@ -4,15 +4,17 @@ function createViewport(world, options) {
             x: 0,
             y: 0
         },
-        size: {
-            width: 800,
-            height: 500
-        },
+        size: options.size,
         scale: 1
     };
 
     var canvasElement = document.querySelector('canvas');
+
+    console.log('setting canvas to size', options.size);
+    canvasElement.height = options.size.height;
+    canvasElement.width = options.size.width;
     var context = canvasElement.getContext('2d');
+    //context.scale(1, 1);
 
     function drawAllPieces(context) {
         context.save();
@@ -55,7 +57,7 @@ function createViewport(world, options) {
 
     viewport.ensureVisible = function ensureVisible(point) {
         //viewport.move(point);
-
+        //console.log('ensureVisible', point, 'in viewport centred', viewport.centre, 'size', viewport.size);
         var boxRatio = 0.5;
         var boxWidth = boxRatio * viewport.size.width;
         var boxHeight = boxRatio * viewport.size.height;

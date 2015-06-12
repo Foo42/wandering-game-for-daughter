@@ -1,5 +1,12 @@
 var world = createWorld();
-var vp = createViewport(world);
+var viewportDiv = document.getElementById('viewport');
+var viewPortSize = {
+    width: window.innerWidth,
+    height: window.innerHeight
+};
+var vp = createViewport(world, {
+    size: viewPortSize
+});
 
 function createPlayer(options, id) {
     var img = new Image(); // Create new img element

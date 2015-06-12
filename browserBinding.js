@@ -96,30 +96,30 @@ function doKeyUp(evt) {
 window.addEventListener('keydown', doKeyDown, true);
 window.addEventListener('keyup', doKeyUp, true);
 
-function scrollFunc(e) {
-    if (typeof scrollFunc.x == 'undefined') {
-        scrollFunc.x = window.pageXOffset;
-        scrollFunc.y = window.pageYOffset;
-    }
-    var diffX = scrollFunc.x - window.pageXOffset;
-    var diffY = scrollFunc.y - window.pageYOffset;
+// function scrollFunc(e) {
+//     if (typeof scrollFunc.x == 'undefined') {
+//         scrollFunc.x = window.pageXOffset;
+//         scrollFunc.y = window.pageYOffset;
+//     }
+//     var diffX = scrollFunc.x - window.pageXOffset;
+//     var diffY = scrollFunc.y - window.pageYOffset;
 
-    if (diffX < 0) {
-        // Scroll right
-    } else if (diffX > 0) {
-        // Scroll left
-    } else if (diffY < 0) {
-        alert('scroll in');
-    } else if (diffY > 0) {
-        // Scroll up
-        alert('scroll out');
-    } else {
-        // First scroll event
-    }
-    scrollFunc.x = window.pageXOffset;
-    scrollFunc.y = window.pageYOffset;
-}
-window.onscroll = scrollFunc
+//     if (diffX < 0) {
+//         // Scroll right
+//     } else if (diffX > 0) {
+//         // Scroll left
+//     } else if (diffY < 0) {
+//         alert('scroll in');
+//     } else if (diffY > 0) {
+//         // Scroll up
+//         alert('scroll out');
+//     } else {
+//         // First scroll event
+//     }
+//     scrollFunc.x = window.pageXOffset;
+//     scrollFunc.y = window.pageYOffset;
+// }
+// window.onscroll = scrollFunc
 
 var fpsDisplay = document.getElementById('fps');
 var cacheDisplay = document.getElementById('cache');
