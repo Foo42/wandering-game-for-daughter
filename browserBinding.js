@@ -112,6 +112,21 @@ window.addEventListener('keyup', doKeyUp, true);
     });
 });
 
+function launchIntoFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
+
+// Launch fullscreen for browsers that support it!
+launchIntoFullscreen(document.documentElement); // the whole page
+
 // function scrollFunc(e) {
 //     if (typeof scrollFunc.x == 'undefined') {
 //         scrollFunc.x = window.pageXOffset;
