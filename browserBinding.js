@@ -101,7 +101,13 @@ window.addEventListener('keyup', doKeyUp, true);
     button.addEventListener('mousedown', function () {
         userInputEvents.emit('movement control on', direction);
     });
+    button.addEventListener('touchstart', function () {
+        userInputEvents.emit('movement control on', direction);
+    });
     button.addEventListener('mouseup', function () {
+        userInputEvents.emit('movement control off', direction);
+    });
+    button.addEventListener('touchend', function () {
         userInputEvents.emit('movement control off', direction);
     });
 });
