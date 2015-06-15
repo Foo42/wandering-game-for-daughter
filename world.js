@@ -21,40 +21,8 @@ function createWorld(options) {
                         x: item.position.x - position.x,
                         y: item.position.y - position.y
                     };
-                    context.save();
-                    context.translate(positionRelativeToChunk.x, positionRelativeToChunk.y);
-                    var radius = 10;
-                    var flowerColor = item.color === 'yellow' ? '#FFFF00' : '#FF0000';
-                    // context.translate(options.position.x, options.position.y);
-                    context.beginPath();
-
-                    context.arc(0, 0 + radius, radius, 0, 2 * Math.PI, false);
-                    context.fillStyle = flowerColor;
-                    context.fill();
-
-                    context.beginPath();
-
-                    context.arc(0, 0 - radius, radius, 0, 2 * Math.PI, false);
-                    context.fillStyle = flowerColor;
-                    context.fill();
-
-                    context.beginPath();
-
-                    context.arc(0 + radius, 0, radius, 0, 2 * Math.PI, false);
-                    context.fillStyle = flowerColor;
-                    context.fill();
-
-                    context.beginPath();
-
-                    context.arc(0 - radius, 0, radius, 0, 2 * Math.PI, false);
-                    context.fillStyle = flowerColor;
-                    context.fill();
-
-                    context.beginPath();
-                    context.arc(0, 0, radius / 1.8, 0, 2 * Math.PI, false);
-                    context.fillStyle = 'white';
-                    context.fill();
-                    context.restore();
+                    var color = item.color === 'yellow' ? '#FFFF00' : '#FF0000';
+                    drawFlower(context,{color:color, radius:10, position: positionRelativeToChunk});
                 });
 
             }
