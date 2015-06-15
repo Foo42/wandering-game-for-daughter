@@ -4,7 +4,8 @@ function createWorld(options) {
         userContent.push({
             type: 'flower',
             position: command.location,
-            color: command.color
+            color: command.color,
+            timeCreated: new Date().getTime()
         });
     });
 
@@ -22,7 +23,11 @@ function createWorld(options) {
                         y: item.position.y - position.y
                     };
                     var color = item.color === 'yellow' ? '#FFFF00' : '#FF0000';
-                    drawFlower(context,{color:color, radius:10, position: positionRelativeToChunk});
+                    var age = new Date().getTime() - item.timeCreated;
+                    var growTime = 500;
+                    var fullSize = 8;
+                    var size = age > growTime ? fullSize : (age / growTime)*fullSize;
+                    drawFlower(context,{color:color, radius:size, position: positionRelativeToChunk});
                 });
 
             }
