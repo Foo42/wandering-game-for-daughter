@@ -22,6 +22,25 @@
         position: absolute;
         bottom: 0;
       }
+      #tray {
+        position: absolute;
+        left: -20%;
+        top:0;
+        background-color: white;
+        height: 100%;
+        width:20%;
+        transition:left 0.3s ease;
+      }
+
+      #tray.open {
+        left:0%;
+      }
+
+      #tray-toggle {
+        position: absolute;
+        right: -35%;
+        top: 0;
+      }
 
       #movement-control-container {
         position: absolute;
@@ -42,6 +61,17 @@
             <div id="fps"></div>
             <div id="cache"></div>
             <div id="position"></div>  
+          </div>
+          <div id="tray" class="open">
+            <div class="control-groups">
+              <div class="control-group placeable-items">
+                <ul>
+                  <li data-command="change active tool" data-argument="red flowers">Red Flower</li>
+                  <li data-command="change active tool" data-argument="yellow flowers">Yellow Flower</li>
+                </ul>
+              </div>
+            </div> 
+            <div id="tray-toggle">toggle</div>
           </div>
           <div id="movement-control-container">
             <svg height="100" width="100">

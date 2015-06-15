@@ -127,6 +127,26 @@ function launchIntoFullscreen(element) {
 // Launch fullscreen for browsers that support it!
 launchIntoFullscreen(document.documentElement); // the whole page
 
+function $(selector) {
+    var elList = document.querySelectorAll(selector);
+    elList = Array.prototype.slice.call(elList, 0);
+    return elList;
+}
+
+document.getElementById('tray-toggle').addEventListener('click', function () {
+    document.getElementById('tray').classList.toggle('open');
+});
+
+$('[data-command]').forEach(function (el) {
+    var command = el.attributes['data-command'].value;
+    var argument = el.attributes['data-argument'].value;
+    el.addEventListener('click',function(){
+        userInputEvents.emit(command,argument);
+    });
+});
+
+
+
 // function scrollFunc(e) {
 //     if (typeof scrollFunc.x == 'undefined') {
 //         scrollFunc.x = window.pageXOffset;

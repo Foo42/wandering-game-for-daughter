@@ -3,7 +3,8 @@ function createWorld(options) {
     userCommands.on('place game item', function (command) {
         userContent.push({
             type: 'flower',
-            position: command.location
+            position: command.location,
+            color: command.color
         });
     });
 
@@ -22,8 +23,8 @@ function createWorld(options) {
                     };
                     context.save();
                     context.translate(positionRelativeToChunk.x, positionRelativeToChunk.y);
-                    var radius = 30;
-                    var flowerColor = '#FFFF00';
+                    var radius = 10;
+                    var flowerColor = item.color === 'yellow' ? '#FFFF00' : '#FF0000';
                     // context.translate(options.position.x, options.position.y);
                     context.beginPath();
 
