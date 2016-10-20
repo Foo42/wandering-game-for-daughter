@@ -15,7 +15,7 @@ function createPlayer(options, id) {
         imgLoaded = true;
         // execute drawImage statements here
     }, false);
-    img.src = 'naomi-small.png'; // Set source path
+    img.src = 'naomi-smaller.png'; // Set source path
 
     if (id === undefined) {
         id = options;
@@ -39,7 +39,7 @@ function createPlayer(options, id) {
         velocity: velocity
     };
 
-    player.size = 120;
+    player.size = 60;
     player.walkingSpeed = 250;
     player.tick = function (elapsedMs) {
         var factor = elapsedMs / 1000;

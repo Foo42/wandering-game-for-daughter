@@ -1,12 +1,8 @@
 function createWorld(options) {
     var userContent = [];
     userCommands.on('place game item', function (command) {
-        userContent.push({
-            type: 'flower',
-            position: command.location,
-            color: command.color,
-            timeCreated: new Date().getTime()
-        });
+        command.timeCreated = new Date().getTime();
+        userContent.push(command);
     });
 
     function makeUserContentChunks(position, chunkSize) {
@@ -22,12 +18,18 @@ function createWorld(options) {
                         x: item.position.x - position.x,
                         y: item.position.y - position.y
                     };
-                    var color = item.color === 'yellow' ? '#FFFF00' : '#FF0000';
-                    var age = new Date().getTime() - item.timeCreated;
-                    var growTime = 500;
-                    var fullSize = 8;
-                    var size = age > growTime ? fullSize : (age / growTime)*fullSize;
-                    drawFlower(context,{color:color, radius:size, position: positionRelativeToChunk});
+
+                    if(item.type === 'flower'){        
+                        var color = item.color === 'yellow' ? '#FFFF00' : '#FF0000';
+                        var age = new Date().getTime() - item.timeCreated;
+                        var growTime = 500;
+                        var fullSize = 8;
+                        var size = age > growTime ? fullSize : (age / growTime)*fullSize;
+                        drawFlower(context,{color:color, radius:size, position: positionRelativeToChunk});    
+                    } else if(item.type === 'house'){
+                        drawHouse(context, {position:positionRelativeToChunk});
+                    }
+                    
                 });
 
             }

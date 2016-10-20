@@ -30,7 +30,7 @@ var tools = {
     'red flowers':function(ev){
         console.log('red flower tool');
         userCommands.emit('place game item', {
-			location: eventToGameLocation(ev),
+			position: eventToGameLocation(ev),
 			type: 'flower',
 			color: 'red'
 		});
@@ -38,10 +38,17 @@ var tools = {
     'yellow flowers':function(ev){
         console.log('yellow flower tool');
         userCommands.emit('place game item', {
-			location: eventToGameLocation(ev),
+			position: eventToGameLocation(ev),
 			type: 'flower',
 			color: 'yellow'
 		});
+    },
+    'houses':function(ev){
+    	console.log('house tool');
+    	userCommands.emit('place game item',{
+    		position: eventToGameLocation(ev),
+    		type: 'house'
+    	});
     }
 };
 

@@ -40,6 +40,17 @@
         position: absolute;
         right: -35%;
         top: 0;
+        background: white;
+        padding:5px;
+      }
+
+      #tray ul {
+        list-style-type: none;
+        padding:0;
+      }
+
+      .controls li {
+        padding: 5px;
       }
 
       #movement-control-container {
@@ -65,9 +76,16 @@
           <div id="tray" class="open">
             <div class="control-groups">
               <div class="control-group placeable-items">
-                <ul>
-                  <li data-command="change active tool" data-argument="red flowers">Red Flower</li>
-                  <li data-command="change active tool" data-argument="yellow flowers">Yellow Flower</li>
+                <ul class="controls">
+                  <li data-command="change active tool" data-argument="red flowers">
+                    <img src="red-flower.png" width="20px" height="20px">
+                  </li>
+                  <li data-command="change active tool" data-argument="yellow flowers">
+                    <img src="yellow-flower.png" width="20px" height="20px">
+                  </li>
+                  <li data-command="change active tool" data-argument="houses">
+                    <img src="house.png" width="20px" height="20px">
+                  </li>
                 </ul>
               </div>
             </div> 
@@ -105,6 +123,7 @@
         <script type="text/javascript" src="world.js"></script>
         <script type="text/javascript" src="viewport.js"></script>
         <script type="text/javascript" src="plants.js"></script>
+        <script type="text/javascript" src="buildings.js"></script>
         <script type="text/javascript" src="game.js"></script>
         <script type="text/javascript" src="inputInterpreter.js"></script>
         <script type="text/javascript" src="browserBinding.js"></script>
